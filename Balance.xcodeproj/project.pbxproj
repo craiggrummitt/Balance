@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE1A592E1992DF1000DA753B /* easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A592D1992DF1000DA753B /* easing.swift */; };
+		CE1A59311992ECF900DA753B /* EasingDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59301992ECF900DA753B /* EasingDeclarations.swift */; };
+		CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59321992EF1F00DA753B /* SKEase.swift */; };
 		CE7C23EE19902800001AA3E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C23ED19902800001AA3E1 /* AppDelegate.swift */; };
 		CE7C23F019902800001AA3E1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7C23EF19902800001AA3E1 /* GameScene.sks */; };
 		CE7C23F219902800001AA3E1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C23F119902800001AA3E1 /* GameScene.swift */; };
@@ -14,6 +17,10 @@
 		CE7C23F719902800001AA3E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7C23F519902800001AA3E1 /* Main.storyboard */; };
 		CE7C23F919902800001AA3E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7C23F819902800001AA3E1 /* Images.xcassets */; };
 		CE7C240519902800001AA3E1 /* BalanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C240419902800001AA3E1 /* BalanceTests.swift */; };
+		CE7C243E19917B7B001AA3E1 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = CE7C243819917B7B001AA3E1 /* easing.c */; };
+		CE7C243F19917B7B001AA3E1 /* SKEase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7C243C19917B7B001AA3E1 /* SKEase.m */; };
+		CE95EB601991A98400D94E49 /* images.atlas in Resources */ = {isa = PBXBuildFile; fileRef = CE95EB5F1991A98400D94E49 /* images.atlas */; };
+		CEC2B8271992B2AC0085F9DB /* TestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2B8261992B2AC0085F9DB /* TestScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE1A592D1992DF1000DA753B /* easing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = easing.swift; path = Easing/easing.swift; sourceTree = "<group>"; };
+		CE1A59301992ECF900DA753B /* EasingDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingDeclarations.swift; path = Easing/EasingDeclarations.swift; sourceTree = "<group>"; };
+		CE1A59321992EF1F00DA753B /* SKEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKEase.swift; sourceTree = "<group>"; };
 		CE7C23E819902800001AA3E1 /* Balance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Balance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7C23EC19902800001AA3E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7C23ED19902800001AA3E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +48,15 @@
 		CE7C23FE19902800001AA3E1 /* BalanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BalanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7C240319902800001AA3E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7C240419902800001AA3E1 /* BalanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTests.swift; sourceTree = "<group>"; };
+		CE7C243819917B7B001AA3E1 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
+		CE7C243919917B7B001AA3E1 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
+		CE7C243A19917B7B001AA3E1 /* EasingDeclarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasingDeclarations.h; sourceTree = "<group>"; };
+		CE7C243B19917B7B001AA3E1 /* SKEase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKEase.h; sourceTree = "<group>"; };
+		CE7C243C19917B7B001AA3E1 /* SKEase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKEase.m; sourceTree = "<group>"; };
+		CE7C243D19917B7B001AA3E1 /* SpriteKit-Easing-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SpriteKit-Easing-Prefix.pch"; sourceTree = "<group>"; };
+		CE7C24481991850A001AA3E1 /* Balance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Balance-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE95EB5F1991A98400D94E49 /* images.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = images.atlas; sourceTree = "<group>"; };
+		CEC2B8261992B2AC0085F9DB /* TestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +77,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE1A592F1992DF1B00DA753B /* Easing */ = {
+			isa = PBXGroup;
+			children = (
+				CE1A592D1992DF1000DA753B /* easing.swift */,
+				CE1A59301992ECF900DA753B /* EasingDeclarations.swift */,
+				CE1A59321992EF1F00DA753B /* SKEase.swift */,
+			);
+			name = Easing;
+			sourceTree = "<group>";
+		};
 		CE7C23DF19902800001AA3E1 = {
 			isa = PBXGroup;
 			children = (
 				CE7C23EA19902800001AA3E1 /* Balance */,
 				CE7C240119902800001AA3E1 /* BalanceTests */,
 				CE7C23E919902800001AA3E1 /* Products */,
+				CE7C243619917B15001AA3E1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,13 +109,16 @@
 		CE7C23EA19902800001AA3E1 /* Balance */ = {
 			isa = PBXGroup;
 			children = (
+				CE95EB5F1991A98400D94E49 /* images.atlas */,
 				CE7C23ED19902800001AA3E1 /* AppDelegate.swift */,
 				CE7C23EF19902800001AA3E1 /* GameScene.sks */,
 				CE7C23F119902800001AA3E1 /* GameScene.swift */,
+				CEC2B8261992B2AC0085F9DB /* TestScene.swift */,
 				CE7C23F319902800001AA3E1 /* GameViewController.swift */,
 				CE7C23F519902800001AA3E1 /* Main.storyboard */,
 				CE7C23F819902800001AA3E1 /* Images.xcassets */,
 				CE7C23EB19902800001AA3E1 /* Supporting Files */,
+				CE1A592F1992DF1B00DA753B /* Easing */,
 			);
 			path = Balance;
 			sourceTree = "<group>";
@@ -93,6 +126,7 @@
 		CE7C23EB19902800001AA3E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE7C24481991850A001AA3E1 /* Balance-Bridging-Header.h */,
 				CE7C23EC19902800001AA3E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -113,6 +147,27 @@
 				CE7C240319902800001AA3E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE7C243619917B15001AA3E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE7C243719917B7B001AA3E1 /* SpriteKit-Easing */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE7C243719917B7B001AA3E1 /* SpriteKit-Easing */ = {
+			isa = PBXGroup;
+			children = (
+				CE7C243819917B7B001AA3E1 /* easing.c */,
+				CE7C243919917B7B001AA3E1 /* easing.h */,
+				CE7C243A19917B7B001AA3E1 /* EasingDeclarations.h */,
+				CE7C243B19917B7B001AA3E1 /* SKEase.h */,
+				CE7C243C19917B7B001AA3E1 /* SKEase.m */,
+				CE7C243D19917B7B001AA3E1 /* SpriteKit-Easing-Prefix.pch */,
+			);
+			path = "SpriteKit-Easing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7C23F919902800001AA3E1 /* Images.xcassets in Resources */,
+				CE95EB601991A98400D94E49 /* images.atlas in Resources */,
 				CE7C23F019902800001AA3E1 /* GameScene.sks in Resources */,
 				CE7C23F719902800001AA3E1 /* Main.storyboard in Resources */,
 			);
@@ -215,9 +271,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7C243E19917B7B001AA3E1 /* easing.c in Sources */,
+				CE1A592E1992DF1000DA753B /* easing.swift in Sources */,
 				CE7C23F219902800001AA3E1 /* GameScene.swift in Sources */,
+				CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */,
+				CE1A59311992ECF900DA753B /* EasingDeclarations.swift in Sources */,
 				CE7C23F419902800001AA3E1 /* GameViewController.swift in Sources */,
 				CE7C23EE19902800001AA3E1 /* AppDelegate.swift in Sources */,
+				CEC2B8271992B2AC0085F9DB /* TestScene.swift in Sources */,
+				CE7C243F19917B7B001AA3E1 /* SKEase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +400,7 @@
 				INFOPLIST_FILE = Balance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Balance/Balance-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -349,6 +412,7 @@
 				INFOPLIST_FILE = Balance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Balance/Balance-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -405,6 +469,7 @@
 				CE7C240A19902800001AA3E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE7C240B19902800001AA3E1 /* Build configuration list for PBXNativeTarget "BalanceTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +478,7 @@
 				CE7C240D19902800001AA3E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
