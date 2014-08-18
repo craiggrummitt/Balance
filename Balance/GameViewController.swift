@@ -23,28 +23,36 @@ extension SKNode {
         return scene
     }
 }
+extension Double {
+    func format(f: String) -> String {
+        return NSString(format: "%\(f)f", self)
+    }
+}
 
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        ConfigurationManager.sharedInstance.setDeviceType(self.view.frame.width)
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
+            //skView.showsPhysics=true
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .ResizeFill
             
             skView.presentScene(scene)
         }
     }
-
     override func shouldAutorotate() -> Bool {
         return true
     }
