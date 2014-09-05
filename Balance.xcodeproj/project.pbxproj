@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE03428B19B4EE3800BD0005 /* LevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03428A19B4EE3800BD0005 /* LevelScene.swift */; };
+		CE03428D19B6751300BD0005 /* SublevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03428C19B6751300BD0005 /* SublevelScene.swift */; };
 		CE1A592E1992DF1000DA753B /* easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A592D1992DF1000DA753B /* easing.swift */; };
 		CE1A59311992ECF900DA753B /* EasingDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59301992ECF900DA753B /* EasingDeclarations.swift */; };
 		CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59321992EF1F00DA753B /* SKEase.swift */; };
+		CE50CAC819B91CBA00BE9781 /* 011436082-level-complete-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE50CAC619B91CBA00BE9781 /* 011436082-level-complete-2.mp3 */; };
+		CE50CAC919B91CBA00BE9781 /* bikeSqueak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE50CAC719B91CBA00BE9781 /* bikeSqueak.mp3 */; };
+		CE50CACB19B922E200BE9781 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50CACA19B922E200BE9781 /* SKButton.swift */; };
 		CE5FE0941996A0C500BCCE72 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5FE0931996A0C500BCCE72 /* CoreMotion.framework */; };
+		CE79523319AD2B1A00C64BB8 /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79523219AD2B1A00C64BB8 /* TitleScene.swift */; };
+		CE79526519AD48DB00C64BB8 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE79526419AD48DB00C64BB8 /* TitleScene.sks */; };
 		CE7C23EE19902800001AA3E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C23ED19902800001AA3E1 /* AppDelegate.swift */; };
 		CE7C23F019902800001AA3E1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7C23EF19902800001AA3E1 /* GameScene.sks */; };
 		CE7C23F219902800001AA3E1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C23F119902800001AA3E1 /* GameScene.swift */; };
@@ -20,8 +27,18 @@
 		CE7C240519902800001AA3E1 /* BalanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C240419902800001AA3E1 /* BalanceTests.swift */; };
 		CEC2B8271992B2AC0085F9DB /* TestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2B8261992B2AC0085F9DB /* TestScene.swift */; };
 		CEC2D429199FD99E0092BD6E /* images.atlas in Resources */ = {isa = PBXBuildFile; fileRef = CEC2D428199FD99E0092BD6E /* images.atlas */; };
+		CED14F6319AEC2370035F93B /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED14F6219AEC2370035F93B /* Objects.swift */; };
+		CED14F9519B0E6120035F93B /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED14F9419B0E6120035F93B /* Levels.swift */; };
+		CED14F9819B0E6860035F93B /* SubLevelVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED14F9719B0E6860035F93B /* SubLevelVO.swift */; };
+		CED14F9D19B0E8620035F93B /* LevelVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED14F9C19B0E8620035F93B /* LevelVO.swift */; };
+		CED14FA319B0F9E60035F93B /* grenade.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CED14FA219B0F9E60035F93B /* grenade.mp3 */; };
+		CED14FA519B11DFC0035F93B /* woosh_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CED14FA419B11DFC0035F93B /* woosh_3.mp3 */; };
+		CED14FAB19B12E630035F93B /* land.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CED14FAA19B12E630035F93B /* land.mp3 */; };
+		CED14FB319B133EC0035F93B /* fall.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CED14FB219B133EB0035F93B /* fall.mp3 */; };
 		CEDF3F38199E7EEA00F57D99 /* Man.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF3F37199E7EEA00F57D99 /* Man.swift */; };
 		CEDF3F3D199E8D2400F57D99 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF3F3C199E8D2400F57D99 /* ConfigurationManager.swift */; };
+		CEE32D5019B7CC1400BFCB57 /* Back Issues BB in Resources */ = {isa = PBXBuildFile; fileRef = CEE32D4F19B7CC1400BFCB57 /* Back Issues BB */; };
+		CEE32D5219B8DAE900BFCB57 /* LevelCompleteScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE32D5119B8DAE900BFCB57 /* LevelCompleteScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +52,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE03428A19B4EE3800BD0005 /* LevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScene.swift; sourceTree = "<group>"; };
+		CE03428C19B6751300BD0005 /* SublevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SublevelScene.swift; sourceTree = "<group>"; };
 		CE1A592D1992DF1000DA753B /* easing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = easing.swift; path = Easing/easing.swift; sourceTree = "<group>"; };
 		CE1A59301992ECF900DA753B /* EasingDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingDeclarations.swift; path = Easing/EasingDeclarations.swift; sourceTree = "<group>"; };
 		CE1A59321992EF1F00DA753B /* SKEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKEase.swift; sourceTree = "<group>"; };
+		CE50CAC619B91CBA00BE9781 /* 011436082-level-complete-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "011436082-level-complete-2.mp3"; sourceTree = "<group>"; };
+		CE50CAC719B91CBA00BE9781 /* bikeSqueak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bikeSqueak.mp3; sourceTree = "<group>"; };
+		CE50CACA19B922E200BE9781 /* SKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
 		CE5FE0931996A0C500BCCE72 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		CE79523219AD2B1A00C64BB8 /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
+		CE79526419AD48DB00C64BB8 /* TitleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TitleScene.sks; sourceTree = "<group>"; };
 		CE7C23E819902800001AA3E1 /* Balance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Balance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7C23EC19902800001AA3E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7C23ED19902800001AA3E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,8 +77,19 @@
 		CE7C24481991850A001AA3E1 /* Balance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Balance-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEC2B8261992B2AC0085F9DB /* TestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScene.swift; sourceTree = "<group>"; };
 		CEC2D428199FD99E0092BD6E /* images.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = images.atlas; sourceTree = "<group>"; };
+		CED14F6219AEC2370035F93B /* Objects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
+		CED14F9419B0E6120035F93B /* Levels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Levels.swift; path = data/Levels.swift; sourceTree = "<group>"; };
+		CED14F9719B0E6860035F93B /* SubLevelVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubLevelVO.swift; path = model/vo/SubLevelVO.swift; sourceTree = "<group>"; };
+		CED14F9C19B0E8620035F93B /* LevelVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelVO.swift; path = model/vo/LevelVO.swift; sourceTree = "<group>"; };
+		CED14FA219B0F9E60035F93B /* grenade.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = grenade.mp3; sourceTree = "<group>"; };
+		CED14FA419B11DFC0035F93B /* woosh_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = woosh_3.mp3; sourceTree = "<group>"; };
+		CED14FAA19B12E630035F93B /* land.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = land.mp3; sourceTree = "<group>"; };
+		CED14FAE19B1306D0035F93B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		CED14FB219B133EB0035F93B /* fall.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fall.mp3; sourceTree = "<group>"; };
 		CEDF3F37199E7EEA00F57D99 /* Man.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Man.swift; path = sprites/Man.swift; sourceTree = "<group>"; };
 		CEDF3F3C199E8D2400F57D99 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		CEE32D4F19B7CC1400BFCB57 /* Back Issues BB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Back Issues BB"; sourceTree = "<group>"; };
+		CEE32D5119B8DAE900BFCB57 /* LevelCompleteScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +122,21 @@
 			path = Balance;
 			sourceTree = "<group>";
 		};
+		CE79523419AD2B7200C64BB8 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				CE7C23EF19902800001AA3E1 /* GameScene.sks */,
+				CE79526419AD48DB00C64BB8 /* TitleScene.sks */,
+				CE79523219AD2B1A00C64BB8 /* TitleScene.swift */,
+				CE03428A19B4EE3800BD0005 /* LevelScene.swift */,
+				CE03428C19B6751300BD0005 /* SublevelScene.swift */,
+				CE7C23F119902800001AA3E1 /* GameScene.swift */,
+				CEE32D5119B8DAE900BFCB57 /* LevelCompleteScene.swift */,
+				CEC2B8261992B2AC0085F9DB /* TestScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 		CE7C23DF19902800001AA3E1 = {
 			isa = PBXGroup;
 			children = (
@@ -109,17 +159,18 @@
 		CE7C23EA19902800001AA3E1 /* Balance */ = {
 			isa = PBXGroup;
 			children = (
+				CED14FA019B0ECBC0035F93B /* audio */,
 				CEC2D428199FD99E0092BD6E /* images.atlas */,
 				CE7C23ED19902800001AA3E1 /* AppDelegate.swift */,
-				CE7C23EF19902800001AA3E1 /* GameScene.sks */,
-				CE7C23F119902800001AA3E1 /* GameScene.swift */,
-				CEC2B8261992B2AC0085F9DB /* TestScene.swift */,
+				CE79523419AD2B7200C64BB8 /* Scenes */,
 				CE7C23F319902800001AA3E1 /* GameViewController.swift */,
 				CE7C23F519902800001AA3E1 /* Main.storyboard */,
 				CE7C23F819902800001AA3E1 /* Images.xcassets */,
 				CE7C23EB19902800001AA3E1 /* Supporting Files */,
 				CEDF3F39199E7EF500F57D99 /* sprites */,
 				CEDF3F3C199E8D2400F57D99 /* ConfigurationManager.swift */,
+				CED14F9619B0E6170035F93B /* data */,
+				CED14F9919B0E68E0035F93B /* vo */,
 			);
 			path = Balance;
 			sourceTree = "<group>";
@@ -127,6 +178,7 @@
 		CE7C23EB19902800001AA3E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEE32D4F19B7CC1400BFCB57 /* Back Issues BB */,
 				CE7C24481991850A001AA3E1 /* Balance-Bridging-Header.h */,
 				CE7C23EC19902800001AA3E1 /* Info.plist */,
 			);
@@ -153,16 +205,49 @@
 		CE7C243619917B15001AA3E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CED14FAE19B1306D0035F93B /* AVKit.framework */,
 				CE5FE0931996A0C500BCCE72 /* CoreMotion.framework */,
 				CE1A592F1992DF1B00DA753B /* Easing */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CED14F9619B0E6170035F93B /* data */ = {
+			isa = PBXGroup;
+			children = (
+				CED14F9419B0E6120035F93B /* Levels.swift */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		CED14F9919B0E68E0035F93B /* vo */ = {
+			isa = PBXGroup;
+			children = (
+				CED14F9719B0E6860035F93B /* SubLevelVO.swift */,
+				CED14F9C19B0E8620035F93B /* LevelVO.swift */,
+			);
+			name = vo;
+			sourceTree = "<group>";
+		};
+		CED14FA019B0ECBC0035F93B /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				CE50CAC619B91CBA00BE9781 /* 011436082-level-complete-2.mp3 */,
+				CE50CAC719B91CBA00BE9781 /* bikeSqueak.mp3 */,
+				CED14FB219B133EB0035F93B /* fall.mp3 */,
+				CED14FAA19B12E630035F93B /* land.mp3 */,
+				CED14FA419B11DFC0035F93B /* woosh_3.mp3 */,
+				CED14FA219B0F9E60035F93B /* grenade.mp3 */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
 		CEDF3F39199E7EF500F57D99 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
 				CEDF3F37199E7EEA00F57D99 /* Man.swift */,
+				CED14F6219AEC2370035F93B /* Objects.swift */,
+				CE50CACA19B922E200BE9781 /* SKButton.swift */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -249,8 +334,16 @@
 			files = (
 				CE7C23F919902800001AA3E1 /* Images.xcassets in Resources */,
 				CEC2D429199FD99E0092BD6E /* images.atlas in Resources */,
+				CED14FB319B133EC0035F93B /* fall.mp3 in Resources */,
+				CED14FAB19B12E630035F93B /* land.mp3 in Resources */,
 				CE7C23F019902800001AA3E1 /* GameScene.sks in Resources */,
+				CE50CAC919B91CBA00BE9781 /* bikeSqueak.mp3 in Resources */,
+				CEE32D5019B7CC1400BFCB57 /* Back Issues BB in Resources */,
+				CE79526519AD48DB00C64BB8 /* TitleScene.sks in Resources */,
 				CE7C23F719902800001AA3E1 /* Main.storyboard in Resources */,
+				CE50CAC819B91CBA00BE9781 /* 011436082-level-complete-2.mp3 in Resources */,
+				CED14FA519B11DFC0035F93B /* woosh_3.mp3 in Resources */,
+				CED14FA319B0F9E60035F93B /* grenade.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,13 +363,22 @@
 			files = (
 				CEDF3F3D199E8D2400F57D99 /* ConfigurationManager.swift in Sources */,
 				CEDF3F38199E7EEA00F57D99 /* Man.swift in Sources */,
+				CED14F6319AEC2370035F93B /* Objects.swift in Sources */,
+				CEE32D5219B8DAE900BFCB57 /* LevelCompleteScene.swift in Sources */,
 				CE1A592E1992DF1000DA753B /* easing.swift in Sources */,
 				CE7C23F219902800001AA3E1 /* GameScene.swift in Sources */,
 				CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */,
+				CE50CACB19B922E200BE9781 /* SKButton.swift in Sources */,
+				CED14F9519B0E6120035F93B /* Levels.swift in Sources */,
+				CED14F9819B0E6860035F93B /* SubLevelVO.swift in Sources */,
 				CE1A59311992ECF900DA753B /* EasingDeclarations.swift in Sources */,
+				CE03428B19B4EE3800BD0005 /* LevelScene.swift in Sources */,
 				CE7C23F419902800001AA3E1 /* GameViewController.swift in Sources */,
 				CE7C23EE19902800001AA3E1 /* AppDelegate.swift in Sources */,
+				CED14F9D19B0E8620035F93B /* LevelVO.swift in Sources */,
 				CEC2B8271992B2AC0085F9DB /* TestScene.swift in Sources */,
+				CE03428D19B6751300BD0005 /* SublevelScene.swift in Sources */,
+				CE79523319AD2B1A00C64BB8 /* TitleScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

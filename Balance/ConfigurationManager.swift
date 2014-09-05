@@ -1,4 +1,5 @@
 import UIKit
+import SpriteKit
 
 let ConfigurationManagerSharedInstance = ConfigurationManager()
 
@@ -10,6 +11,9 @@ enum DeviceType:String {
 class ConfigurationManager : NSObject {
     var globalDic: NSMutableDictionary = NSMutableDictionary()
     var deviceType:DeviceType!
+    var levelNo:Int!
+    var levels:Array<LevelVO>!
+    var imagesAtlas:SKTextureAtlas!
     func setDeviceType(frameWidth:CGFloat) {
         if frameWidth==768.0 {
             deviceType = DeviceType.IPAD
@@ -21,7 +25,9 @@ class ConfigurationManager : NSObject {
     func getDeviceType()->DeviceType {
         return deviceType
     }
-    
+    func getImageTexture(imageName:String)->SKTexture {
+        return(self.imagesAtlas.textureNamed(imageName+self.deviceType.toRaw()+".png"))
+    }
     
     class var sharedInstance:ConfigurationManager {
         return ConfigurationManagerSharedInstance

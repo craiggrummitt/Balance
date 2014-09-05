@@ -27,7 +27,7 @@ class Man: SKNode {
     init(imagesAtlas:SKTextureAtlas) {
         super.init()
         for i in 0..<manBobbingTextureNames.count {
-            println("man\(manBobbingTextureNames[i])"+ConfigurationManager.sharedInstance.getDeviceType().toRaw()+".png")
+//            println("man\(manBobbingTextureNames[i])"+ConfigurationManager.sharedInstance.getDeviceType().toRaw()+".png")
             manBobbingFrames.append(imagesAtlas.textureNamed("man\(manBobbingTextureNames[i])"+ConfigurationManager.sharedInstance.getDeviceType().toRaw()+".png"))
         }
         for i in 0..<manWalkingTextureNames.count {
@@ -53,7 +53,7 @@ class Man: SKNode {
     
     }
     func stopWalking() {
-        if (man.actionForKey(BOBBING_KEY)) {return}
+        if ((man.actionForKey(BOBBING_KEY)) != nil) { return }
         man.removeActionForKey(WALKING_KEY)
         man.runAction(
             SKAction.repeatActionForever(
@@ -63,7 +63,7 @@ class Man: SKNode {
         )
     }
     func startWalking() {
-        if (man.actionForKey(WALKING_KEY)) {return}
+        if ((man.actionForKey(WALKING_KEY)) != nil) { return }
         man.removeActionForKey(BOBBING_KEY)
         man.runAction(
             SKAction.repeatActionForever(
