@@ -9,29 +9,18 @@
 import UIKit
 import SpriteKit
 
-extension SKNode {
-  /*  class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
-            var sceneData = NSData.dataWithContentsOfFile(path, options: .DataReadingMappedIfSafe, error: nil)
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
-    }*/
-  /*  class func unarchiveFromFile(file : NSString) -> SKNode? {
-        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
-        var sceneData = NSData.dataWithContentsOfFile(path!, options: .DataReadingMappedIfSafe, error: nil)
-        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
-        archiver.finishDecoding()
-        return scene
-    }*/
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
 }
 extension Double {
     func format(f: String) -> String {
@@ -41,6 +30,7 @@ extension Double {
 
 class GameViewController: UIViewController {
     var currentScene:SKScene!
+    var levelNo:Int=0
     var subLevelNo:Int=0
     var levels:Array<LevelVO>=[]
     var imagesAtlas = SKTextureAtlas(named: "images")
@@ -51,9 +41,12 @@ class GameViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goTitle:", name: LevelEvents.EventBack.toRaw(), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goSublevel:", name: LevelEvents.EventComplete.toRaw(), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goLevel:", name: SublevelEvents.EventBack.toRaw(), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goGame:", name: SublevelEvents.EventComplete.toRaw(), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectSublevel:", name: SublevelEvents.EventComplete.toRaw(), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goSuccess:", name: GameEvents.EventSuccess.toRaw(), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goFail:", name: GameEvents.EventFail.toRaw(), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goTitle:", name: LevelCompleteEvents.EventMenu.toRaw(), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goNext:", name: LevelCompleteEvents.EventNext.toRaw(), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goReplay:", name: LevelCompleteEvents.EventReplay.toRaw(), object: nil)
         allFonts()
     }
     func allFonts(){
@@ -105,15 +98,19 @@ class GameViewController: UIViewController {
         showScene(LevelScene(levels: levels, size: size))
     }
     func goSublevel(sender:AnyObject) {
-        var levelNo = (currentScene as LevelScene).currentLevelNo
+        levelNo = (currentScene as LevelScene).currentLevelNo
         showScene(SublevelScene(level: levels[levelNo], size: size))
     }
-    func goGame(sender: AnyObject) {
+    func selectSublevel(sender: AnyObject) {
         subLevelNo=(currentScene as SublevelScene).sublevelNo
-        var subLevelVO = levels[0].subLevels[subLevelNo]
-        showScene(GameScene(imagesAtlas: imagesAtlas, subLevelVO:subLevelVO, size: size))
+        goGame()
+    }
+    func goGame() {
+        var subLevelVO = levels[levelNo].subLevels[subLevelNo]
+        showScene(GameScene(imagesAtlas: imagesAtlas, levelNo:levelNo, subLevelVO:subLevelVO, size: size))
     }
     func goSuccess(sender: AnyObject) {
+        levels[levelNo].subLevels[subLevelNo].playStatus=PlayStatus.Success
         goLevelCompleteScene(true)
         
         /*subLevelNo++
@@ -124,7 +121,16 @@ class GameViewController: UIViewController {
         goLevelCompleteScene(false)
     }
     func goLevelCompleteScene(success:Bool) {
-        showScene(LevelCompleteScene(success: success, size: size))
+        var levelVO = levels[levelNo]
+        var nextAvailable = (subLevelNo<levelVO.subLevels.count-2 && levelVO.subLevels[subLevelNo+1].playStatus != .Locked)
+        showScene(LevelCompleteScene(success: success, nextAvailable:nextAvailable, size: size))
+    }
+    func goNext(sender:AnyObject) {
+        subLevelNo++
+        goGame()
+    }
+    func goReplay(sender:AnyObject) {
+        goGame()
     }
     func showScene(whichScene:SKScene) {
         let skView = self.view as SKView

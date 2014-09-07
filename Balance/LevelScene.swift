@@ -14,7 +14,7 @@ enum LevelEvents:String {
     case EventBack="LevelEventBack"
 }
 
-class LevelScene: SKScene {
+class LevelScene: SKScene,SKButtonDelegate {
     var cm = ConfigurationManager.sharedInstance
     let deviceType:DeviceType = ConfigurationManager.sharedInstance.getDeviceType()
     var levels:Array<LevelVO>
@@ -23,9 +23,8 @@ class LevelScene: SKScene {
     var swipeLeftGesture:UISwipeGestureRecognizer!
     var titleImageHolder:SKNode=SKNode()
     var currentLevelNo:Int
-    var backButton:SKSpriteNode!
+    var backButton:SKButton!
     var touchBeginPoint:CGPoint!
-    var backDown:Bool=false
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -43,13 +42,13 @@ class LevelScene: SKScene {
         for var levelNo = 0;levelNo<self.levels.count;levelNo++ {
             var level = levels[levelNo]
             var levelTitleImage = SKSpriteNode(texture: cm.getImageTexture(level.titleImage))
-            levelTitleImage.position=CGPoint(x:CGRectGetMidX(self.view.bounds)+(CGFloat(levelNo)*self.view.bounds.width), y:CGRectGetMidY(self.view.bounds))
+            levelTitleImage.position=CGPoint(x:CGRectGetMidX(self.view!.bounds)+(CGFloat(levelNo)*self.view!.bounds.width), y:CGRectGetMidY(self.view!.bounds))
             titleImageHolder.addChild(levelTitleImage)
 
             levelTitleImages.append(levelTitleImage)
         }
         var firstTitleImage = levelTitleImages[0]
-        firstTitleImage.runAction(SKEase.moveFromWithNode(firstTitleImage, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view.bounds.width+firstTitleImage.frame.width/2, firstTitleImage.position.y)))
+        firstTitleImage.runAction(SKEase.moveFromWithNode(firstTitleImage, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view.bounds.width+firstTitleImage.frame.width, firstTitleImage.position.y)))
         
         
         //gestures
@@ -62,13 +61,16 @@ class LevelScene: SKScene {
         view.addGestureRecognizer(swipeRightGesture)
         view.addGestureRecognizer(swipeLeftGesture)
         
-        
-        backButton = SKSpriteNode(texture: cm.getImageTexture("back"))
+        backButton = SKButton(offTexture: cm.getImageTexture("back"), downTexture: cm.getImageTexture("backDown"))
+        backButton.position=CGPoint(x: 100,y: 100)
+        backButton.delegate = self
+        self.addChild(backButton)
+        /*backButton = SKSpriteNode(texture: cm.getImageTexture("back"))
         backButton.position=CGPoint(x:100,y:100)
         backButton.name="backButton"
-        self.addChild(backButton)
+        self.addChild(backButton)*/
     }
-    override func willMoveFromView(view: SKView!) {
+    override func willMoveFromView(view: SKView) {
         view.removeGestureRecognizer(swipeRightGesture)
     }
     func handleRight(recognizer: UISwipeGestureRecognizer) {
@@ -77,7 +79,7 @@ class LevelScene: SKScene {
         }
     }
     func animateToVector() {
-        var toVector=CGVectorMake(-CGFloat(currentLevelNo)*view.bounds.width, titleImageHolder.position.y)
+        var toVector=CGVectorMake(-CGFloat(currentLevelNo)*view!.bounds.width, titleImageHolder.position.y)
         self.titleImageHolder.runAction(SKEase.moveToWithNode(self.titleImageHolder, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, toVector: toVector))
     }
     func handleLeft(recognizer: UISwipeGestureRecognizer) {
@@ -85,40 +87,24 @@ class LevelScene: SKScene {
             currentLevelNo++
         }
     }
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        var touch: AnyObject = touches.anyObject()
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        var touch: AnyObject = touches.anyObject()!
         var positionInScene = touch.locationInNode(self)
         var previousPosition = touch.previousLocationInNode(self)
-        if (backDown) {
-            if (self.nodeAtPoint(positionInScene) != self.backButton) {
-                self.backButton.texture = cm.getImageTexture("back")
-                backDown=false
-            }
-        } else {
-            var translation = CGPoint(x: positionInScene.x - previousPosition.x,y: positionInScene.y - previousPosition.y)
-            self.titleImageHolder.position.x = self.titleImageHolder.position.x+translation.x
-        }
+        var translation = CGPoint(x: positionInScene.x - previousPosition.x,y: positionInScene.y - previousPosition.y)
+        self.titleImageHolder.position.x = self.titleImageHolder.position.x+translation.x
     }
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
-        touchBeginPoint = touches.anyObject().locationInNode(self)
-        var node = self.nodeAtPoint(touchBeginPoint)
-        if (node == self.backButton) {
-            self.backButton.texture = cm.getImageTexture("backDown")
-            backDown=true
-        }
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        touchBeginPoint = touches.anyObject()!.locationInNode(self)
     }
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         println("touches ended")
-        var touchEndPoint = touches.anyObject().locationInNode(self)
+        var touchEndPoint = touches.anyObject()!.locationInNode(self)
         var node = self.nodeAtPoint(touchEndPoint)
-        if (backDown && node==self.backButton) {
-            NSNotificationCenter.defaultCenter().postNotificationName(LevelEvents.EventBack.toRaw(), object:self)
+        if (abs(distanceBetween(p1: touchBeginPoint, p2: touchEndPoint))<10) {
+            NSNotificationCenter.defaultCenter().postNotificationName(LevelEvents.EventComplete.toRaw(), object:self)
         } else {
-            if (abs(distanceBetween(p1: touchBeginPoint, p2: touchEndPoint))<10) {
-                NSNotificationCenter.defaultCenter().postNotificationName(LevelEvents.EventComplete.toRaw(), object:self)
-            } else {
-                animateToVector()
-            }
+            animateToVector()
         }
 
     }
@@ -130,4 +116,10 @@ class LevelScene: SKScene {
         println("touches cancelled")
         animateToVector()
     }
+    func buttonUp(button: SKButton) {
+        if (button==backButton) {
+            NSNotificationCenter.defaultCenter().postNotificationName(LevelEvents.EventBack.toRaw(), object:self)
+        }
+    }
+
 }

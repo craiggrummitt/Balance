@@ -12,6 +12,7 @@
 		CE1A592E1992DF1000DA753B /* easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A592D1992DF1000DA753B /* easing.swift */; };
 		CE1A59311992ECF900DA753B /* EasingDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59301992ECF900DA753B /* EasingDeclarations.swift */; };
 		CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A59321992EF1F00DA753B /* SKEase.swift */; };
+		CE501D7619BA62BB00891AD6 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE501D7519BA62BB00891AD6 /* Background.swift */; };
 		CE50CAC819B91CBA00BE9781 /* 011436082-level-complete-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE50CAC619B91CBA00BE9781 /* 011436082-level-complete-2.mp3 */; };
 		CE50CAC919B91CBA00BE9781 /* bikeSqueak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE50CAC719B91CBA00BE9781 /* bikeSqueak.mp3 */; };
 		CE50CACB19B922E200BE9781 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50CACA19B922E200BE9781 /* SKButton.swift */; };
@@ -57,6 +58,7 @@
 		CE1A592D1992DF1000DA753B /* easing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = easing.swift; path = Easing/easing.swift; sourceTree = "<group>"; };
 		CE1A59301992ECF900DA753B /* EasingDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingDeclarations.swift; path = Easing/EasingDeclarations.swift; sourceTree = "<group>"; };
 		CE1A59321992EF1F00DA753B /* SKEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKEase.swift; sourceTree = "<group>"; };
+		CE501D7519BA62BB00891AD6 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = sprites/Background.swift; sourceTree = "<group>"; };
 		CE50CAC619B91CBA00BE9781 /* 011436082-level-complete-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "011436082-level-complete-2.mp3"; sourceTree = "<group>"; };
 		CE50CAC719B91CBA00BE9781 /* bikeSqueak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bikeSqueak.mp3; sourceTree = "<group>"; };
 		CE50CACA19B922E200BE9781 /* SKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				CEDF3F37199E7EEA00F57D99 /* Man.swift */,
 				CED14F6219AEC2370035F93B /* Objects.swift */,
 				CE50CACA19B922E200BE9781 /* SKButton.swift */,
+				CE501D7519BA62BB00891AD6 /* Background.swift */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				CED14F6319AEC2370035F93B /* Objects.swift in Sources */,
 				CEE32D5219B8DAE900BFCB57 /* LevelCompleteScene.swift in Sources */,
 				CE1A592E1992DF1000DA753B /* easing.swift in Sources */,
+				CE501D7619BA62BB00891AD6 /* Background.swift in Sources */,
 				CE7C23F219902800001AA3E1 /* GameScene.swift in Sources */,
 				CE1A59331992EF1F00DA753B /* SKEase.swift in Sources */,
 				CE50CACB19B922E200BE9781 /* SKButton.swift in Sources */,

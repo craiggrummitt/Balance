@@ -13,8 +13,8 @@ enum PlayStatus {
     case Success
 }
 class SubLevelVO {
-    var mustBalance:Int!
-    var objects:Array<Int>!
+    var mustBalance:Int
+    var objects:Array<Int>
     var playStatus:PlayStatus
     init(mustBalance:Int,objects:Array<Int>,playStatus:PlayStatus) {
         self.mustBalance=mustBalance

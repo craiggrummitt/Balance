@@ -29,29 +29,26 @@ class TitleScene: SKScene,SKButtonDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didMoveToView(view: SKView!) {
-        println("\(self.view.bounds.width),\(self.view.bounds.height)")
+    override func didMoveToView(view: SKView) {
+        println("\(self.view!.bounds.width),\(self.view!.bounds.height)")
         self.backgroundColor = SKColor.whiteColor()
-        //createLabels()
-        var button = SKButton(offTexture: cm.getImageTexture("button"), downTexture: cm.getImageTexture("buttonDown"), text: "Menu")
-        button.position=CGPoint(x: button.frame.width,y: button.frame.height)
-        button.delegate = self
-        self.addChild(button)
+        createLabels()
+        
     }
     func createLabels() {
         self.crashLabel = SKSpriteNode(texture: cm.getImageTexture("crash"))
-        self.crashLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds)-110, y:CGRectGetMidY(self.view.bounds))
+        self.crashLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds)-110, y:CGRectGetMidY(self.view!.bounds))
         
         self.bamLabel = SKSpriteNode(texture: cm.getImageTexture("bam"))
-        self.bamLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds)+110, y:CGRectGetMidY(self.view.bounds)+10)
+        self.bamLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds)+110, y:CGRectGetMidY(self.view!.bounds)+10)
         
        /* titleLabel.text = "CRASH BOOM!"
         titleLabel.fontSize = 45
         titleLabel.fontColor = UIColor.blackColor()
-        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:CGRectGetMidY(self.view.bounds))*/
+        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds), y:CGRectGetMidY(self.view!.bounds))*/
         
         subtitleLabel.text = "Touch to play"
-        self.subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:self.crashLabel.position.y-self.crashLabel.size.height+50)
+        self.subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds), y:self.crashLabel.position.y-self.crashLabel.size.height+50)
         subtitleLabel.fontSize = 14
         subtitleLabel.fontColor = UIColor.blackColor()
         
@@ -70,14 +67,14 @@ class TitleScene: SKScene,SKButtonDelegate {
         }
     }
     func flyOn(node:SKNode)->SKAction {
-        var action=SKEase.moveFromWithNode(node, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view.bounds.width+node.frame.width/2, node.position.y))
+        var action=SKEase.moveFromWithNode(node, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view!.bounds.width+node.frame.width/2, node.position.y))
         return action
     }
     func flyOff(node:SKNode)->SKAction {
         var action=SKEase.moveToWithNode(node, easeFunction: .CurveTypeElastic, easeType: .EaseTypeIn, time: 1, toVector: CGVectorMake(-node.frame.width/2, node.position.y))
         return action
     }
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         var foundTouch = false
         for touch: AnyObject in touches {
             foundTouch=true
@@ -91,10 +88,4 @@ class TitleScene: SKScene,SKButtonDelegate {
             }
         }
     }
-    func buttonDown(button: SKButton) {
-        println("BUTTON DOWN")
     }
-   /* func buttonUp(button: SKButton) {
-        println("BUTOTN UP")
-    }*/
-}

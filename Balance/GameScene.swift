@@ -33,6 +33,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     let OBJECT_TIME = NSTimeInterval(3)
     let OBJECT_DROP_TIME = NSTimeInterval(6)
     let BALL_TIME = NSTimeInterval(11)
+    var MAN_INIT_Y = 131
     
     let cm = ConfigurationManager.sharedInstance
     let deviceType:DeviceType=ConfigurationManager.sharedInstance.getDeviceType()
@@ -47,9 +48,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var arrowRight:SKSpriteNode!
     var arrowLeft:SKSpriteNode!
     var borderBody:SKPhysicsBody!
+    var rightBorderBody:SKPhysicsBody!
+    var leftBorderBody:SKPhysicsBody!
     var object:SKSpriteNode!
     var ball:SKSpriteNode?
     var exit:SKSpriteNode?
+    var background:Background!
     //atlas
     var imagesAtlas:SKTextureAtlas
     //vars
@@ -60,16 +64,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var lastUpdateTimeInterval=NSTimeInterval(0)
     var lastObjectSpawnTimeInterval=NSTimeInterval(0)
     var lastBallSpawnTimeInterval=NSTimeInterval(0)
-    let motionManager = CMMotionManager()
+//    let motionManager = CMMotionManager()
     var square1:SKShapeNode!
     var objectAdded:Bool=false
     var score:Int=0
     var objectsFactory:Objects!
     var subLevelVO:SubLevelVO
+    var levelNo:Int
     
-    init(imagesAtlas:SKTextureAtlas, subLevelVO:SubLevelVO, size: CGSize) {
-        self.subLevelVO=subLevelVO
+    init(imagesAtlas:SKTextureAtlas, levelNo:Int, subLevelVO:SubLevelVO, size: CGSize) {
         self.imagesAtlas=imagesAtlas
+        self.levelNo=levelNo
+        self.subLevelVO=subLevelVO
         deviceType = ConfigurationManager.sharedInstance.getDeviceType()
         super.init(size: size)
     }
@@ -83,30 +89,39 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         resetMan()
     }
     override func didMoveToView(view: SKView) {
-        motionManager.accelerometerUpdateInterval = (1/40)
         self.physicsWorld.gravity = CGVectorMake(0.0, -9.8);
         self.physicsWorld.contactDelegate = self;
+        //self.view!.showsPhysics=true
         
-        self.backgroundColor = SKColor.whiteColor()
+        self.backgroundColor = SKColor(netHex: 0xA2DAE9)
         
-        borderBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: -100, y: 0), toPoint: CGPoint(x: self.view.bounds.width+100,y: 0))
+        borderBody = SKPhysicsBody(edgeFromPoint: CGPoint(x: -100, y: MAN_INIT_Y), toPoint: CGPoint(x: Int(self.view!.bounds.width) + 100,y: MAN_INIT_Y))
         borderBody.categoryBitMask=ColliderType.BorderCategory.toRaw()
         self.physicsBody = borderBody;
-        self.physicsBody.friction = 0.0;
+        self.physicsBody!.friction = 0.0;
         
         createMan()
+        createBG()
         createLabels()
         objectsFactory=Objects(imagesAtlas: imagesAtlas)
         createArrows()
         showIntroLabels()
         
     }
+    func createBG() {
+        background=Background(backgroundTextureNames: ConfigurationManager.sharedInstance.levels[levelNo].backgroundTextures,sceneWidth: self.view!.bounds.width)
+        background.update(man.position.x / view!.bounds.width)
+        self.addChild(background)
+    }
+    func updateBG() {
+        background.update(man.position.x / view!.bounds.width)
+    }
     func createArrows() {
         var arrowRightTexture=cm.getImageTexture("arrowRight")
         arrowRight = SKSpriteNode(texture: arrowRightTexture)
-        arrowRight.position = CGPoint(x: self.view.bounds.width-arrowRight.size.width, y: CGRectGetMidY(self.view.bounds)-arrowRight.size.height/2)
+        arrowRight.position = CGPoint(x: self.view!.bounds.width-arrowRight.size.width, y: CGRectGetMidY(self.view!.bounds)-arrowRight.size.height/2)
         arrowLeft = SKSpriteNode(texture: arrowRightTexture)
-        arrowLeft.position = CGPoint(x: arrowLeft.size.width, y: CGRectGetMidY(self.view.bounds)-arrowLeft.size.height/2)
+        arrowLeft.position = CGPoint(x: arrowLeft.size.width, y: CGRectGetMidY(self.view!.bounds)-arrowLeft.size.height/2)
         arrowLeft.xScale = -1
     }
     func changeStatusToReadyForClick() {
@@ -125,7 +140,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             if gameStatus==GameStatus.READY_FOR_CLICK.toRaw() || gameStatus==GameStatus.GAME_OVER.toRaw() {
                 if (gameStatus==GameStatus.GAME_OVER.toRaw()) {
                     removeObjects()
-                  //  removeBall()
                     self.lastObjectSpawnTimeInterval = 0
                     self.physicsWorld.gravity = CGVectorMake(0.0, -9.8);
                     if let exitUnwrapped=exit {
@@ -142,29 +156,25 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 titleLabel.runAction(flyOff(titleLabel))
                 numberLabel.runAction(flyOff(numberLabel))
                 subtitleLabel.runAction(flyOff(subtitleLabel))
-                man.physicsBody.dynamic = true
+                man.physicsBody!.dynamic = true
                 //display arrows
                 self.addChild(arrowRight)
                 self.addChild(arrowLeft)
                 var queue=NSOperationQueue()
-                motionManager.accelerometerUpdateInterval = (1/40)
-                motionManager.startAccelerometerUpdatesToQueue(queue, withHandler: {(accelerometerData:CMAccelerometerData!, error:NSError!) in
-                    self.updateAcceleration(accelerometerData.acceleration)
-                })
                 playSqueak()
 
             } else if gameStatus==GameStatus.PLAYING_GAME.toRaw() {
                 var touch: UITouch = touches.anyObject() as UITouch
                 let location = touch.locationInNode(self)
-                if (location.x>self.view.bounds.width-CGFloat(TAP_DISTANCE)) { //go right
+                if (location.x>self.view!.bounds.width-CGFloat(TAP_DISTANCE)) { //go right
                     //manDirection=Float(1)
-                    man.physicsBody.applyImpulse(CGVectorMake(200,0))
+                    man.physicsBody!.applyImpulse(CGVectorMake(200,0))
                     startWalkingMan()
                 } else if (location.x<CGFloat(TAP_DISTANCE)) {                  //go left
-                    man.physicsBody.applyImpulse(CGVectorMake(-200,0))
+                    man.physicsBody!.applyImpulse(CGVectorMake(-200,0))
                     startWalkingMan()
                 //} else {                                                        //jump
-                //    man.physicsBody.applyImpulse(CGVectorMake(0,4000))
+                //    man.physicsBody!.applyImpulse(CGVectorMake(0,4000))
                 }
             }
         }
@@ -189,7 +199,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         scoreLabel.text="Balancing : \(score)"
         objectiveLabel.text="Must balance : \(self.subLevelVO.mustBalance)"
     }
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         if gameStatus==GameStatus.PLAYING_GAME.toRaw() {
             //manDirection=0
             //stopWalkingMan()
@@ -202,30 +212,30 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         subtitleLabel.text = "Touch to continue"
         titleLabel.fontSize = 65
         titleLabel.fontColor = UIColor.blackColor()
-        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:CGRectGetMidY(self.view.bounds)-titleLabel.frame.height/2)
+        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds), y:CGRectGetMidY(self.view!.bounds)-titleLabel.frame.height/2)
         
         numberLabel.text = "1"
         numberLabel.fontSize = 130
         numberLabel.fontColor = UIColor.blackColor()
-        numberLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:CGRectGetMidY(self.view.bounds)-titleLabel.frame.height/2)
+        numberLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds), y:CGRectGetMidY(self.view!.bounds)-titleLabel.frame.height/2)
         numberLabel.hidden = true
         
         subtitleLabel.fontSize = 14
         subtitleLabel.fontColor = UIColor.blackColor()
-        subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:titleLabel.position.y-subtitleLabel.frame.height-10)
+        subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view!.bounds), y:titleLabel.position.y-subtitleLabel.frame.height-10)
         subtitleLabel.hidden=true
         
         scoreLabel.fontSize = 20
         scoreLabel.fontColor=UIColor.blackColor()
         scoreLabel.horizontalAlignmentMode=SKLabelHorizontalAlignmentMode.Left
         scoreLabel.verticalAlignmentMode=SKLabelVerticalAlignmentMode.Top
-        scoreLabel.position=CGPoint(x: 10, y:view.bounds.height-scoreLabel.frame.height-10)
+        scoreLabel.position=CGPoint(x: 10, y:view!.bounds.height-scoreLabel.frame.height-10)
         
         objectiveLabel.fontSize = 20
         objectiveLabel.fontColor=UIColor.blackColor()
         objectiveLabel.horizontalAlignmentMode=SKLabelHorizontalAlignmentMode.Right
         objectiveLabel.verticalAlignmentMode=SKLabelVerticalAlignmentMode.Top
-        objectiveLabel.position=CGPoint(x: view.bounds.width-objectiveLabel.frame.width-10, y:view.bounds.height-scoreLabel.frame.height-10)
+        objectiveLabel.position=CGPoint(x: view!.bounds.width-objectiveLabel.frame.width-10, y:view!.bounds.height-scoreLabel.frame.height-10)
         self.addChild(titleLabel)
         self.addChild(self.subtitleLabel)
         self.addChild(self.numberLabel)
@@ -245,7 +255,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 self.numberLabel.runAction(SKEase.scaleFromWithNode(self.numberLabel, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1, fromValue: 0)) {
                     self.runAction(SKAction.playSoundFileNamed("woosh_3.mp3", waitForCompletion: false))
                     self.subtitleLabel.hidden=false
-                    self.subtitleLabel.position.x=CGRectGetMidX(self.view.bounds)
+                    self.subtitleLabel.position.x=CGRectGetMidX(self.view!.bounds)
                     self.subtitleLabel.runAction(self.flyOn(self.subtitleLabel)) {
                         self.changeStatusToReadyForClick()
                     }
@@ -254,7 +264,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func flyOn(node:SKNode)->SKAction {
-        var action=SKEase.moveFromWithNode(node, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view.bounds.width+node.frame.width/2, node.position.y))
+        var action=SKEase.moveFromWithNode(node, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromVector: CGVectorMake(view!.bounds.width+node.frame.width/2, node.position.y))
         return action
     }
     func flyOff(node:SKNode)->SKAction {
@@ -263,20 +273,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     //----------------------------------------------------------------------
     // objects
-    /*func setupObjects() {
-        for i in 1...OBJECT_MAX {
-            objectFrames.append(imagesAtlas.textureNamed("briefcase\(i)"+deviceType.toRaw()+".png"))
-        }
-    }*/
     func addObject() {
         objectAdded=true
         currentObjectNo = self.subLevelVO.objects[objects.count] //Int(rand()) % ObjectsConsts.OBJECT_MAX.toRaw()
-        object=objectsFactory.getObject(currentObjectNo) //SKSpriteNode(texture: objectFrames[objectNo])
-        var objectX = view.bounds.width/4 + CGFloat(arc4random()) % (view.bounds.width/2)
-        object.position = CGPoint(x: objectX, y: view.bounds.height-10-object.size.height/2)
+        object=objectsFactory.getObject(currentObjectNo,levelNo:levelNo) //SKSpriteNode(texture: objectFrames[objectNo])
+        var objectX = view!.bounds.width/4 + CGFloat(arc4random()) % (view!.bounds.width/2)
+        object.position = CGPoint(x: objectX, y: view!.bounds.height-10-object.size.height/2)
+        object.zPosition=20
         self.addChild(object)
         
-        var action=SKEase.moveFromWithNode(object, easeFunction: .CurveTypeElastic, easeType: .EaseTypeIn, time: 0.5, fromVector: CGVectorMake(object.position.x,view.bounds.height+object.size.height/2))
+        var action=SKEase.moveFromWithNode(object, easeFunction: .CurveTypeElastic, easeType: .EaseTypeIn, time: 0.5, fromVector: CGVectorMake(object.position.x,view!.bounds.height+object.size.height/2))
         object.runAction(action)
         objects.append(object)
         self.runAction(SKAction.waitForDuration(4.5)) {
@@ -284,7 +290,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func dropObject() {
-        objectsFactory.generatePhysics(object, objectNo: currentObjectNo)
+        objectsFactory.generatePhysics(object, objectNo: currentObjectNo,levelNo:levelNo)
     }
     func removeObjects() {
         self.removeChildrenInArray(objects)
@@ -297,8 +303,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             } else {
                 exit=SKSpriteNode(texture: cm.getImageTexture("exit"))
                 exit!.position=CGPoint(x: 10, y: exit!.size.height)
-                exit!.zPosition=0
-                self.addChild(exit)
+                exit!.zPosition = 2
+                self.addChild(exit!)
                 return
             }
         }
@@ -313,57 +319,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.runAction(SKAction.playSoundFileNamed("fall.mp3", waitForCompletion: false), withKey: "fall")
         }
     }
-    
-        //----------------------------------------------------------------------
-    // balls
-/*    func addBall() {
-        ball=SKSpriteNode(texture: imagesAtlas.textureNamed("ball"+getDeviceType().toRaw()+".png"))
-        ball!.position=CGPoint(x: ball!.size.width/2, y: ball!.size.height/2)
-        ball!.physicsBody = SKPhysicsBody(circleOfRadius: ball!.size.width/2)
-        ball!.physicsBody.categoryBitMask = ColliderType.BallCategory.toRaw()  //what's this?
-        ball!.physicsBody.contactTestBitMask = ColliderType.ManCategory.toRaw() //what to notify contact of
-        ball!.physicsBody.collisionBitMask = ColliderType.ManCategory.toRaw() | ColliderType.ObjectCategory.toRaw() | ColliderType.BorderCategory.toRaw() //what to bounce off
-        ball!.physicsBody.friction=0.0
-        ball!.physicsBody.linearDamping=0.0
-        ball!.physicsBody.mass=1
-        ball!.physicsBody.dynamic = true
-        self.addChild(ball!)
-        ball!.physicsBody.applyImpulse(CGVectorMake(300,0))
-    }
-    func removeBallIfOffScreen() {
-        if let theBall=ball {
-            if (theBall.position.x>self.view.bounds.width) {
-                self.removeChildrenInArray([theBall])
-                ball=nil
-            }
-        }
-    }
-    func removeBall() {
-        if let theBall=ball {
-            self.removeChildrenInArray([theBall])
-            ball=nil
-        }
-    }
-    func updateBall(timeSinceLast:CFTimeInterval) {
-        self.lastBallSpawnTimeInterval += timeSinceLast
-        if (self.lastBallSpawnTimeInterval > BALL_TIME) {
-            self.lastBallSpawnTimeInterval = 0
-            addBall()
-        } else {
-            removeBallIfOffScreen()
-        }
-    }*/
     //----------------------------------------------------------------------
     // man
     func createMan() {
         man=Man(imagesAtlas: imagesAtlas)
-        man.position = CGPointMake(CGRectGetMidX(self.view.bounds),man.frame.height/2)
+        man.position = CGPointMake(CGRectGetMidX(self.view!.bounds), man.frame.height/2 + CGFloat(MAN_INIT_Y))
+        man.zPosition=10
         self.addChild(man)
         self.animateManToCentreOfScreen()
 
     }
     func resetMan() {
-        man.position = CGPointMake(view.bounds.width/2,10+man.frame.height/2)
+        man.position = CGPointMake(view!.bounds.width/2,CGFloat(MAN_INIT_Y) + man.frame.height/2)
         man.zRotation=0
     }
     func stopWalkingMan() {
@@ -390,8 +357,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 self.lastUpdateTimeInterval = currentTime
             }
             updateObject(timeSinceLast)
-         //   updateBall(timeSinceLast)
             updateMan()
+            updateBG()
             if (man.position.x<0) {
                 if let exitUnwrapped=exit {
                     success()
@@ -403,42 +370,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.physicsWorld.gravity.dx=CGFloat(acceleration.x)
     }
     func success() {
+        gameStatus=GameStatus.GAME_OVER.toRaw()
         NSNotificationCenter.defaultCenter().postNotificationName(GameEvents.EventSuccess.toRaw(), object:self)
-/*        self.removeChildrenInArray([arrowLeft,arrowRight])
-        removeObjects()
-        titleLabel.text = "Level complete!"
-        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:CGRectGetMidY(self.view.bounds)-titleLabel.frame.height/2)
-        gameStatus=GameStatus.PENDING.toRaw()
-        self.runAction(SKAction.playSoundFileNamed("grenade.mp3", waitForCompletion: false))
-        self.titleLabel.runAction(SKEase.scaleFromWithNode(titleLabel, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1.5, fromValue: 0)) {
-//            self.subtitleLabel.text="Touch to play next level"
- //           self.subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:self.subtitleLabel.position.y)
-  //          self.subtitleLabel.runAction(self.flyOn(self.subtitleLabel)) {
-                NSNotificationCenter.defaultCenter().postNotificationName(GameEvents.EventSuccess.toRaw(), object:self)
-   //         }
-        }*/
     }
     func gameOver() {
-         NSNotificationCenter.defaultCenter().postNotificationName(GameEvents.EventFail.toRaw(), object:self)
-/*       self.removeChildrenInArray([arrowLeft,arrowRight])
-        self.physicsWorld.gravity = CGVectorMake(0.0, -4.0);
-        motionManager.stopAccelerometerUpdates()
-        objectAdded=false
-        gameStatus=GameStatus.PENDING.toRaw()
-        titleLabel.text = "Game Over!"
-        titleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:titleLabel.position.y)
-
-
-        man.physicsBody.dynamic=false
-        stopWalkingMan()
-        self.runAction(SKAction.playSoundFileNamed("grenade.mp3", waitForCompletion: false))
-        self.titleLabel.runAction(SKEase.scaleFromWithNode(titleLabel, easeFunction: .CurveTypeElastic, easeType: .EaseTypeOut, time: 1, fromValue: 0)) {
-            self.runAction(SKAction.playSoundFileNamed("woosh_3.mp3", waitForCompletion: false))
-            self.subtitleLabel.position = CGPoint(x:CGRectGetMidX(self.view.bounds), y:self.subtitleLabel.position.y)
-            self.subtitleLabel.runAction(self.flyOn(self.subtitleLabel)) {
-                self.changeStatusToGameOver()
-            }
-        }*/
+        gameStatus=GameStatus.GAME_OVER.toRaw()
+        NSNotificationCenter.defaultCenter().postNotificationName(GameEvents.EventFail.toRaw(), object:self)
     }
     func changeStatusToGameOver() {
         gameStatus = GameStatus.GAME_OVER.toRaw()
@@ -453,19 +390,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         if gameStatus==GameStatus.PLAYING_GAME.toRaw() {
-            println("COLLIDE \(firstBody.categoryBitMask) and \(secondBody.categoryBitMask)")
+            //println("COLLIDE \(firstBody.categoryBitMask) and \(secondBody.categoryBitMask)")
             if ((firstBody.categoryBitMask & ColliderType.ObjectCategory.toRaw() == ColliderType.ObjectCategory.toRaw()) &&
                 (secondBody.categoryBitMask & ColliderType.BorderCategory.toRaw() == ColliderType.BorderCategory.toRaw()) ) {
                     gameOver()
-            } else if ((firstBody.categoryBitMask == ColliderType.ObjectCategory.toRaw() && secondBody.categoryBitMask == ColliderType.ObjectCategory.toRaw())
-            || (firstBody.categoryBitMask == ColliderType.ManCategory.toRaw() && secondBody.categoryBitMask == ColliderType.ObjectCategory.toRaw())) {
-                //self.removeActionForKey("fall")
-                //self.runAction(SKAction.playSoundFileNamed("land.mp3", waitForCompletion: false))
-            } /*else if ((firstBody.categoryBitMask == ColliderType.ManCategory.toRaw()) &&
-                (secondBody.categoryBitMask == ColliderType.BallCategory.toRaw())) {
-                    println("MAN HIT BALL \(firstBody.categoryBitMask), \(secondBody.categoryBitMask)")
-                    gameOver()
-            }*/
+            }
         }
 
     }
